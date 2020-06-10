@@ -1,0 +1,42 @@
+{
+  "name": "scaffold",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && webpack --mode development --config ./config/webpack.config.js && webpack --mode development",
+    "dev": "rm -rf dist && webpack --mode development --config ./config/webpack.server.js && webpack --mode development --config ./config/webpack.config.js && node ./server/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "backbone": "1.2.3",
+    "backbone.marionette": "2.4.4",
+    "backbone.radio": "1.0.4",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "handlebars-loader": "^1.7.1",
+    "helmet": "^3.22.0",
+    "jquery": "^3.5.0",
+    "underscore": "^1.10.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "babel-loader": "^8.1.0",
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.5.3",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "html-loader": "^1.1.0",
+    "html-webpack-plugin": "^4.3.0",
+    "node-sass": "^4.14.1",
+    "sass-loader": "7.1.0",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-middleware": "^3.7.0",
+    "webpack-hot-middleware": "^2.25.0",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
