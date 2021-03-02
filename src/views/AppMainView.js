@@ -1,34 +1,33 @@
-import Marionette from "backbone.marionette";
-import $ from "jquery";
+import Marionette from 'backbone.marionette';
+import $ from 'jquery';
 // import { isMobile } from "../helpers/CommonUtil";
-import template from "../templates/appMainView.hbs";
+import template from '../templates/appMainView.hbs';
 
 export default Marionette.LayoutView.extend({
-  el: "#app-main",
+  el: '#app-main',
 
   template,
 
   regions: {
     main: {
-      el: "#app-hook",
-      allowMissingEl: true
-    }
+      el: '#app-hook',
+      allowMissingEl: true,
+    },
   },
 
   initialize(options) {
-    
     this.options = options;
 
     let prevScrollpos = window.pageYOffset;
     window.onscroll = function () {
       let currentScrollPos = window.pageYOffset;
       if (prevScrollpos > currentScrollPos) {
-        document.getElementById("navbarTop").style.top = "0";
+        document.getElementById('navbarTop').style.top = '0';
       } else {
-        document.getElementById("navbarTop").style.top = "-80px";
+        document.getElementById('navbarTop').style.top = '-80px';
       }
       prevScrollpos = currentScrollPos;
-    }
+    };
 
     this.render();
   },
@@ -52,7 +51,6 @@ export default Marionette.LayoutView.extend({
     //   options: this.options,
     //   pageName
     // };
-
     // this.getRegion("main").show(new Layout(layoutConfig));
     // $('nav a[href^="' + location.hash + '"]').addClass("active");
   },

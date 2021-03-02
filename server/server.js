@@ -17,8 +17,8 @@ app.disable('x-powered-by');
 
 app.use(
   require("webpack-dev-middleware")(compiler, {
-      noInfo: true,
-      publicPath: config.output.publicPath
+    noInfo: true,
+    publicPath: config.output.publicPath
   })
 );
 
@@ -32,16 +32,47 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, './../src/templates/'));
 //serve static assets from dist directory
 app.use("/dist", express.static(__dirname + './../dist'));
+app.use("/assets", express.static(__dirname + './../assets/'));
+app.use("/js", express.static(__dirname + './../dist/js/'));
+app.use("/css", express.static(__dirname + './../dist/css/'));
 
+
+const isProduction = process.env.NODE_ENV === 'production';
+let indexHbs;
+if(isProduction){
+  indexHbs = './../dist/index.hbs';
+}else{
+  indexHbs = './../index.hbs';
+}
 
 //rendering engine
 app.engine('hbs', handlebars({
   layoutsDir: __dirname + './../src/templates/',
+  partialsDir: __dirname + './../src/templates/partials/',
   extname: 'hbs',
-  defaultLayout: __dirname + './../index.hbs',
+  defaultLayout: __dirname + indexHbs,
 }));
 
-//default route
+// function showErrorPage(req, res) {
+//   console.log('>> serving 404 page for url ' + url.format({
+//     protocol: req.protocol,
+//     host: req.get('host'),
+//     pathname: req.originalUrl
+//   }));
+
+//   res.render('page', {
+//     pageName: "404",
+//     meta: {
+//       title: "Nerd Rack - Shop Online",
+//       description: "Nerdy tees and shirts for men and women"
+//     }
+//   });
+// }
+
+
+/**
+ * Routes
+ */
 app.get('/', (req, res) => {
   console.log('>> serving default route ');
   res.render('page', {
@@ -49,7 +80,14 @@ app.get('/', (req, res) => {
   });
 });
 
-//write other express logic as your application demands
+
+//The 404 Route 
+// app.get('/*', function (req, res, next) {
+//   showErrorPage(req, res);
+// })
+
+
+
 
 app.listen(port, () => console.log('\x1b[32m',
   `

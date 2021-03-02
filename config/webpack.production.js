@@ -4,29 +4,42 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const packageFile = require('../package.json');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const WebpackBundleAnalyzer = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+let CleanWebpackPlugin = require('clean-webpack-plugin');
+
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
+  devtool: 'source-map',
   resolve: {
     alias: {
       'handlebars/runtime': 'handlebars/dist/cjs/handlebars.runtime',
       'handlebars': 'handlebars/dist/cjs/handlebars.runtime',
     }
   },
-  entry: {
-    index: ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', path.join(__dirname, './../src/app.js'),],
-  },
+  entry: path.join(__dirname, './../src/app.js'),
   output: {
-    filename: "[name].bundle.js",
-    publicPath: "/",
-    path: path.join(__dirname, './../dist/'),
+    filename: '[name].bundle-[hash:8].js',
+    publicPath: "./../js/",
+    path: path.resolve(__dirname, './../dist/js'),
   },
+  optimization: {
+    splitChunks: {
+     cacheGroups: {
+      vendor: {
+       test: /node_modules/,
+       chunks: 'initial',
+       name: 'vendor',
+       enforce: true
+      },
+     }
+    } 
+   },
   target: 'web',
   node: {
     fs: 'empty',
     net: 'empty',
   },
-  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -65,23 +78,30 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(), 
+    new CleanWebpackPlugin(),
     new ExtractTextPlugin({
-      filename: 'app.bundle.css',
+      filename: './../css/app.bundle.css',
       allChunks: true,
     }),
     new HtmlWebPackPlugin({
-      template: path.join(__dirname, './../index.template.html'),
-      filename: path.join(__dirname, './../index.hbs'),
-      excludeChunks: ['server'],
+      template: "./index.template.html",
+      filename: path.resolve(__dirname, './../dist/index.hbs'),
+      excludeChunks: [ 'server' ],
       hash: true,
     }),
     new CopyWebpackPlugin([
       {
         from: 'assets',
-        to: 'assets',
+        to: path.resolve(__dirname, './../dist/assets/'),
+        ignore: ['*.DS_Store'],
+      },
+      {
+        from: 'server',
+        to: path.resolve(__dirname, './../dist/server/'),
         ignore: ['*.DS_Store'],
       },
     ]),
+    new WebpackBundleAnalyzer(),
   ]
 }

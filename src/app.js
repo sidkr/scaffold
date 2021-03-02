@@ -1,10 +1,10 @@
-import Backbone from "backbone";
-import Marionette from "backbone.marionette";
-import Router from "./routers/Router";
-import "./scss/main.scss";
+import Backbone from 'backbone';
+import Marionette from 'backbone.marionette';
+import Router from './routers/Router';
+import './scss/main.scss';
 
 const MnApp = Marionette.Application.extend({
-  region: "#app-main",
+  region: '#app-main',
 
   initialize() {
     Backbone.history.stop();

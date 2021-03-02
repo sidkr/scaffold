@@ -18,7 +18,7 @@ module.exports = (env, argv) => {
     output: {
       filename: "[name].bundle.js",
       publicPath: "/",
-      path: path.join(__dirname, 'dist'),
+      path: path.join(__dirname, './../dist/'),
     },
     mode: argv.mode,
     target: 'node',
