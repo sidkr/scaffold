@@ -17,3 +17,12 @@ npm run dev (Development server)
 http://localhost:3000 
 
 ```
+
+### Build in Production Mode
+
+```shell
+npm run buildProd
+npm run runProd (Production Node server)
+http://localhost:3000 
+
+```
