@@ -3,10 +3,10 @@
 ### Stack
 
 * ExpressJS (Server Side)
-* Express Handlebars (Template engine)
+* Express Handlebars (Template Engine SSR)
 
-* Backbone/Marionette (Client Side)
-* Handlebars (Client Rendering)
+* Backbone/Marionette (Client JS Framework)
+* Handlebars (Client Rendering Template)
 
 
 ### Installation/Run Locally
